@@ -45,3 +45,27 @@ function changeSlide(n) {
     slides[slideIndex - 1].style.display = "block";
     slides[slideIndex - 1].classList.add('fade');
 }
+
+function updateClock() {
+    const clockElement = document.getElementById('real-time-clock');
+    const dateElement = document.getElementById('real-time-date');
+    const now = new Date();
+
+    // Format waktu: HH:mm:ss
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const timeString = `${hours}:${minutes}:${seconds}`;
+
+    // Format tanggal: Hari, DD MMMM YYYY
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateString = now.toLocaleDateString('id-ID', options);
+
+    // Update elemen
+    clockElement.textContent = timeString;
+    dateElement.textContent = dateString;
+}
+
+// Jalankan `updateClock` setiap detik
+setInterval(updateClock, 1000);
+updateClock(); // Jalankan segera saat halaman dimuat
